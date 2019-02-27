@@ -8,13 +8,8 @@
 		"type": "AzureDataLakeStoreFile",
 		"typeProperties": {
 			"format": {
-				"type": "TextFormat",
-				"columnDelimiter": ",",
-				"rowDelimiter": "",
-				"nullValue": "\\N",
-				"treatEmptyAsNull": true,
-				"skipLineCount": 0,
-				"firstRowAsHeader": false
+				"type": "JsonFormat",
+				"filePattern": "setOfObjects"
 			},
 			"fileName": "Address.json",
 			"folderPath": "Reference"
