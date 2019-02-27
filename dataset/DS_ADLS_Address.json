@@ -1,0 +1,23 @@
+{
+	"name": "DS_ADLS_Address",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ADLS_sqlbitsadfra001dlsv1",
+			"type": "LinkedServiceReference"
+		},
+		"type": "AzureDataLakeStoreFile",
+		"typeProperties": {
+			"format": {
+				"type": "TextFormat",
+				"columnDelimiter": ",",
+				"rowDelimiter": "",
+				"nullValue": "\\N",
+				"treatEmptyAsNull": true,
+				"skipLineCount": 0,
+				"firstRowAsHeader": false
+			},
+			"fileName": "Address.json",
+			"folderPath": "Reference"
+		}
+	}
+}
