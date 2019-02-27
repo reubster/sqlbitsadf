@@ -1,0 +1,13 @@
+{
+	"name": "LS_MSQL_AdventureWorksLT",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ASQL_Staging",
+			"type": "LinkedServiceReference"
+		},
+		"type": "AzureSqlTable",
+		"typeProperties": {
+			"tableName": "[AWLTSRC].[SalesLT_Customer]"
+		}
+	}
+}
