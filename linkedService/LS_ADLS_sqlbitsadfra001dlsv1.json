@@ -1,0 +1,13 @@
+{
+	"name": "LS_ADLS_sqlbitsadfra001dlsv1",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"type": "AzureDataLakeStore",
+		"typeProperties": {
+			"dataLakeStoreUri": "https://sqlbitsadfra001dlsv01.azuredatalakestore.net/webhdfs/v1",
+			"tenant": "665a15a5-d025-4c27-af0d-f78f6b8e3da0",
+			"subscriptionId": "84cf6300-fc86-45aa-9bcb-f090602b7f5f",
+			"resourceGroupName": "sqlbitsadfra001"
+		}
+	}
+}
