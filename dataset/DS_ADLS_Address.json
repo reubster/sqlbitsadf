@@ -5,6 +5,9 @@
 			"referenceName": "LS_ADLS_sqlbitsadfra001dlsv1",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "Lab02"
+		},
 		"type": "AzureDataLakeStoreFile",
 		"typeProperties": {
 			"format": {
