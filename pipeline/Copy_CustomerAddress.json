@@ -47,7 +47,7 @@
 		"parameters": {
 			"SinkPreCopyScript": {
 				"type": "String",
-				"defaultValue": "TRUNCATE TABLE AWLTSRC.SalesLT_Address"
+				"defaultValue": "TRUNCATE TABLE AWLTSRC.SalesLT_CustomerAddress"
 			}
 		},
 		"folder": {
