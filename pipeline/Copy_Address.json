@@ -49,6 +49,9 @@
 				"type": "String",
 				"defaultValue": "TRUNCATE TABLE AWLTSRC.SalesLT_Address"
 			}
+		},
+		"folder": {
+			"name": "Lab02"
 		}
 	}
 }
