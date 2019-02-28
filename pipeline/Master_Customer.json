@@ -9,7 +9,8 @@
 					"pipeline": {
 						"referenceName": "Copy_SalesLT_Customer2",
 						"type": "PipelineReference"
-					}
+					},
+					"waitOnCompletion": true
 				}
 			}
 		],
