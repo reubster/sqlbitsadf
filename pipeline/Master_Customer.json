@@ -10,7 +10,11 @@
 						"referenceName": "Copy_SalesLT_Customer2",
 						"type": "PipelineReference"
 					},
-					"waitOnCompletion": true
+					"waitOnCompletion": true,
+					"parameters": {
+						"SourceQuery": "SELECT CustomerID, NameStyle, Title, FirstName, MiddleName, LastName, Suffix, CompanyName, SalesPerson, EmailAddress, Phone, PasswordHash, PasswordSalt, CAST(rowguid as NVARCHAR(50)) AS rowguid, ModifiedDate FROM SalesLT.Customer",
+						"SinkPreCopyScript": "TRUNCATE TABLE [AWLTSRC].[SalesLT_Customer]"
+					}
 				}
 			}
 		],
