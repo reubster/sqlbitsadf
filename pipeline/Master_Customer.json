@@ -1,6 +1,18 @@
 {
 	"name": "Master_Customer",
 	"properties": {
+		"activities": [
+			{
+				"name": "Copy_SalesLT_CustomerV2",
+				"type": "ExecutePipeline",
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "Copy_SalesLT_Customer2",
+						"type": "PipelineReference"
+					}
+				}
+			}
+		],
 		"folder": {
 			"name": "Lab02"
 		}
