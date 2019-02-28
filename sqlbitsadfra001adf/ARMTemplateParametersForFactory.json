@@ -11,6 +11,12 @@
 		"LS_MSQL_AdventureWorksLT_connectionString": {
 			"value": ""
 		},
+		"DS_ADLS_Address_properties_typeProperties_fileName": {
+			"value": "Address.json"
+		},
+		"DS_ADLS_Address_properties_typeProperties_folderPath": {
+			"value": "Reference"
+		},
 		"LS_ADLS_sqlbitsadfra001dlsv1_properties_typeProperties_dataLakeStoreUri": {
 			"value": "https://sqlbitsadfra001dlsv01.azuredatalakestore.net/webhdfs/v1"
 		},
@@ -22,6 +28,12 @@
 		},
 		"LS_ADLS_sqlbitsadfra001dlsv1_properties_typeProperties_resourceGroupName": {
 			"value": "sqlbitsadfra001"
+		},
+		"DS_ADLS_CustomerAddress_properties_typeProperties_fileName": {
+			"value": "CustomerAddress.txt"
+		},
+		"DS_ADLS_CustomerAddress_properties_typeProperties_folderPath": {
+			"value": "Reference"
 		}
 	}
 }
