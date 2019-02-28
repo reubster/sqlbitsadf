@@ -59,6 +59,71 @@
 						"SinkPreCopyScript": "TRUNCATE TABLE AWLTSRC.SalesLT_CustomerAddress"
 					}
 				}
+			},
+			{
+				"name": "usp_Customer_Load",
+				"type": "SqlServerStoredProcedure",
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"typeProperties": {
+					"storedProcedureName": "[Stage].[usp_Customer_Load]",
+					"storedProcedureParameters": {
+						"BatchId": {
+							"value": "-1",
+							"type": "Int64"
+						},
+						"ETLAuditLogId": {
+							"value": "-1",
+							"type": "Int64"
+						},
+						"ETLControlId": {
+							"value": "-1",
+							"type": "Int32"
+						},
+						"PipelineId": {
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"PipelineName": {
+							"value": {
+								"value": "@pipeline().Pipeline",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"PipelineTriggerType": {
+							"value": {
+								"value": "@pipeline().TriggerType",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"SinkName": {
+							"value": "Stage.Customer",
+							"type": "String"
+						},
+						"SourceName": {
+							"value": "AWLTSRC.Customer",
+							"type": "String"
+						},
+						"SourceSystem": {
+							"value": "AWLTSRC",
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "LS_ASQL_Staging",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"folder": {
