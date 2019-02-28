@@ -18,7 +18,12 @@
 						"recursive": true
 					},
 					"sink": {
-						"type": "AzureDataLakeStoreSink"
+						"type": "SqlSink",
+						"writeBatchSize": 10000,
+						"preCopyScript": {
+							"value": "@{pipeline().parameters.SinkPreCopyScript}",
+							"type": "Expression"
+						}
 					},
 					"enableStaging": false
 				},
@@ -30,11 +35,20 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "DS_ADLS_Address",
-						"type": "DatasetReference"
+						"referenceName": "DS_ASQL_Staging",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "AWLTSRC.SalesLT_Address"
+						}
 					}
 				]
 			}
-		]
+		],
+		"parameters": {
+			"SinkPreCopyScript": {
+				"type": "String",
+				"defaultValue": "TRUNCATE TABLE AWLTSRC.SalesLT_Address"
+			}
+		}
 	}
 }
