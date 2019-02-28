@@ -1,0 +1,22 @@
+{
+	"name": "DS_ASQL_Staging",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ASQL_Staging",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"TableName": {
+				"type": "String",
+				"defaultValue": "dbo.TableName"
+			}
+		},
+		"type": "AzureSqlTable",
+		"typeProperties": {
+			"tableName": {
+				"value": "@dataset().TableName",
+				"type": "Expression"
+			}
+		}
+	}
+}
