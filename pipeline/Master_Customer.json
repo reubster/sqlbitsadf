@@ -16,6 +16,49 @@
 						"SinkPreCopyScript": "TRUNCATE TABLE [AWLTSRC].[SalesLT_Customer]"
 					}
 				}
+			},
+			{
+				"name": "Copy_Address",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Copy_SalesLT_CustomerV2",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "Copy_Address",
+						"type": "PipelineReference"
+					},
+					"parameters": {
+						"SinkPreCopyScript": "TRUNCATE TABLE AWLTSRC.SalesLT_Address"
+					}
+				}
+			},
+			{
+				"name": "Copy_CustomerAddress",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Copy_Address",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "Copy_CustomerAddress",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"SinkPreCopyScript": "TRUNCATE TABLE AWLTSRC.SalesLT_CustomerAddress"
+					}
+				}
 			}
 		],
 		"folder": {
