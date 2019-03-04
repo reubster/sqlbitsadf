@@ -30,7 +30,10 @@
 				"inputs": [
 					{
 						"referenceName": "DS_ADLS_Address",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"JsonFileName": "Address.json"
+						}
 					}
 				],
 				"outputs": [
