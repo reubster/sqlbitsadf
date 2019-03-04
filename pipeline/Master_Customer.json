@@ -134,6 +134,16 @@
 				}
 			}
 		],
+		"parameters": {
+			"AddressSourceFileName": {
+				"type": "String",
+				"defaultValue": "Address.json"
+			},
+			"CustomerAddressSourceFileName": {
+				"type": "String",
+				"defaultValue": "CustomerAddress.tst"
+			}
+		},
 		"folder": {
 			"name": "Lab02"
 		}
