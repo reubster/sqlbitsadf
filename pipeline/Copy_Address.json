@@ -32,7 +32,10 @@
 						"referenceName": "DS_ADLS_Address",
 						"type": "DatasetReference",
 						"parameters": {
-							"JsonFileName": "Address.json"
+							"JsonFileName": {
+								"value": "@pipeline().parameters.AddressSourceFileName",
+								"type": "Expression"
+							}
 						}
 					}
 				],
@@ -51,6 +54,10 @@
 			"SinkPreCopyScript": {
 				"type": "String",
 				"defaultValue": "TRUNCATE TABLE AWLTSRC.SalesLT_Address"
+			},
+			"AddressSourceFileName": {
+				"type": "String",
+				"defaultValue": "Address.json"
 			}
 		},
 		"folder": {
