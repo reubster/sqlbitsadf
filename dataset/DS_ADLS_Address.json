@@ -5,6 +5,12 @@
 			"referenceName": "LS_ADLS_sqlbitsadfra001dlsv1",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"JsonFileName": {
+				"type": "String",
+				"defaultValue": "Address.json"
+			}
+		},
 		"folder": {
 			"name": "Lab02"
 		},
@@ -14,7 +20,10 @@
 				"type": "JsonFormat",
 				"filePattern": "setOfObjects"
 			},
-			"fileName": "Address.json",
+			"fileName": {
+				"value": "@dataset().JsonFileName",
+				"type": "Expression"
+			},
 			"folderPath": "Reference"
 		}
 	}
