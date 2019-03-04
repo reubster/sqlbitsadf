@@ -33,8 +33,10 @@
 						"referenceName": "Copy_Address",
 						"type": "PipelineReference"
 					},
+					"waitOnCompletion": true,
 					"parameters": {
-						"SinkPreCopyScript": "TRUNCATE TABLE AWLTSRC.SalesLT_Address"
+						"SinkPreCopyScript": "TRUNCATE TABLE AWLTSRC.SalesLT_Address",
+						"AddressSourceFileName": "Address.json"
 					}
 				}
 			},
