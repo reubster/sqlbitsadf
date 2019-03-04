@@ -12,7 +12,7 @@
 			}
 		},
 		"folder": {
-			"name": "Lab02"
+			"name": "Lab 02"
 		},
 		"type": "AzureDataLakeStoreFile",
 		"typeProperties": {
