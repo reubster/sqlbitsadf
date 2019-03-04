@@ -5,6 +5,15 @@
 			"referenceName": "LS_ADLS_sqlbitsadfra001dlsv1",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"TextFileName": {
+				"type": "String",
+				"defaultValue": "CustomerAddress.txt"
+			}
+		},
+		"folder": {
+			"name": "Lab02"
+		},
 		"type": "AzureDataLakeStoreFile",
 		"typeProperties": {
 			"format": {
@@ -18,7 +27,10 @@
 				"skipLineCount": 0,
 				"firstRowAsHeader": true
 			},
-			"fileName": "CustomerAddress.txt",
+			"fileName": {
+				"value": "@dataset().TextFileName",
+				"type": "Expression"
+			},
 			"folderPath": "Reference"
 		}
 	}
