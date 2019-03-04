@@ -23,9 +23,39 @@
 					"sink": {
 						"type": "SqlSink",
 						"writeBatchSize": 10000,
-						"preCopyScript": {
-							"value": "@{pipeline().parameters.SinkPreCopyScript}",
-							"type": "Expression"
+						"sqlWriterStoredProcedureName": "[AWLTSRC].[usp_SalesLT_Customer_Merge]",
+						"sqlWriterTableType": "[AWLTSRC].[SalesLT_CustomerType]",
+						"storedProcedureParameters": {
+							"BatchId": {
+								"type": "Int64"
+							},
+							"ETLAuditLogId": {
+								"type": "Int64"
+							},
+							"ETLControlId": {
+								"type": "Int32"
+							},
+							"LogType": {
+								"type": "String"
+							},
+							"PipelineId": {
+								"type": "String"
+							},
+							"PipelineName": {
+								"type": "String"
+							},
+							"PipelineTriggerType": {
+								"type": "String"
+							},
+							"SinkName": {
+								"type": "String"
+							},
+							"SourceName": {
+								"type": "String"
+							},
+							"SourceSystem": {
+								"type": "String"
+							}
 						}
 					},
 					"enableStaging": false
