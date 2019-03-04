@@ -12,9 +12,15 @@
 			"value": ""
 		},
 		"DS_ADLS_Address_properties_typeProperties_fileName": {
-			"value": "Address.json"
+			"value": "@dataset().JsonFileName"
 		},
 		"DS_ADLS_Address_properties_typeProperties_folderPath": {
+			"value": "Reference"
+		},
+		"DS_ADLS_CustomerAddress_properties_typeProperties_fileName": {
+			"value": "@dataset().TextFileName"
+		},
+		"DS_ADLS_CustomerAddress_properties_typeProperties_folderPath": {
 			"value": "Reference"
 		},
 		"LS_ADLS_sqlbitsadfra001dlsv1_properties_typeProperties_dataLakeStoreUri": {
@@ -28,12 +34,6 @@
 		},
 		"LS_ADLS_sqlbitsadfra001dlsv1_properties_typeProperties_resourceGroupName": {
 			"value": "sqlbitsadfra001"
-		},
-		"DS_ADLS_CustomerAddress_properties_typeProperties_fileName": {
-			"value": "CustomerAddress.txt"
-		},
-		"DS_ADLS_CustomerAddress_properties_typeProperties_folderPath": {
-			"value": "Reference"
 		}
 	}
 }

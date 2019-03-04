@@ -33,7 +33,7 @@
 		},
 		"DS_ADLS_Address_properties_typeProperties_fileName": {
 			"type": "string",
-			"defaultValue": "Address.json"
+			"defaultValue": "@dataset().JsonFileName"
 		},
 		"DS_ADLS_Address_properties_typeProperties_folderPath": {
 			"type": "string",
@@ -41,7 +41,7 @@
 		},
 		"DS_ADLS_CustomerAddress_properties_typeProperties_fileName": {
 			"type": "string",
-			"defaultValue": "CustomerAddress.txt"
+			"defaultValue": "@dataset().TextFileName"
 		},
 		"DS_ADLS_CustomerAddress_properties_typeProperties_folderPath": {
 			"type": "string",
@@ -100,6 +100,12 @@
 					"referenceName": "LS_ADLS_sqlbitsadfra001dlsv1",
 					"type": "LinkedServiceReference"
 				},
+				"parameters": {
+					"JsonFileName": {
+						"type": "String",
+						"defaultValue": "Address.json"
+					}
+				},
 				"folder": {
 					"name": "Lab02"
 				},
@@ -110,8 +116,54 @@
 						"type": "JsonFormat",
 						"filePattern": "setOfObjects"
 					},
-					"fileName": "[parameters('DS_ADLS_Address_properties_typeProperties_fileName')]",
+					"fileName": {
+						"value": "[parameters('DS_ADLS_Address_properties_typeProperties_fileName')]",
+						"type": "Expression"
+					},
 					"folderPath": "[parameters('DS_ADLS_Address_properties_typeProperties_folderPath')]"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_ADLS_sqlbitsadfra001dlsv1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_ADLS_CustomerAddress')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_ADLS_sqlbitsadfra001dlsv1",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"TextFileName": {
+						"type": "String",
+						"defaultValue": "CustomerAddress.txt"
+					}
+				},
+				"folder": {
+					"name": "Lab02"
+				},
+				"annotations": [],
+				"type": "AzureDataLakeStoreFile",
+				"typeProperties": {
+					"format": {
+						"type": "TextFormat",
+						"columnDelimiter": ",",
+						"rowDelimiter": "",
+						"quoteChar": "\"",
+						"nullValue": "\\N",
+						"encodingName": null,
+						"treatEmptyAsNull": true,
+						"skipLineCount": 0,
+						"firstRowAsHeader": true
+					},
+					"fileName": {
+						"value": "[parameters('DS_ADLS_CustomerAddress_properties_typeProperties_fileName')]",
+						"type": "Expression"
+					},
+					"folderPath": "[parameters('DS_ADLS_CustomerAddress_properties_typeProperties_folderPath')]"
 				}
 			},
 			"dependsOn": [
@@ -135,25 +187,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/LS_ASQL_Staging')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/LS_MSQL_AdventureWorksLT')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "SqlServer",
-				"typeProperties": {
-					"connectionString": "[parameters('LS_MSQL_AdventureWorksLT_connectionString')]"
-				},
-				"connectVia": {
-					"referenceName": "SelfHostedIntegrationRuntime",
-					"type": "IntegrationRuntimeReference"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/integrationRuntimes/SelfHostedIntegrationRuntime')]"
 			]
 		},
 		{
@@ -188,53 +221,22 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/DS_ADLS_CustomerAddress')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
+			"name": "[concat(parameters('factoryName'), '/LS_MSQL_AdventureWorksLT')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"linkedServiceName": {
-					"referenceName": "LS_ADLS_sqlbitsadfra001dlsv1",
-					"type": "LinkedServiceReference"
-				},
 				"annotations": [],
-				"type": "AzureDataLakeStoreFile",
+				"type": "SqlServer",
 				"typeProperties": {
-					"format": {
-						"type": "TextFormat",
-						"columnDelimiter": ",",
-						"rowDelimiter": "",
-						"quoteChar": "\"",
-						"nullValue": "\\N",
-						"encodingName": null,
-						"treatEmptyAsNull": true,
-						"skipLineCount": 0,
-						"firstRowAsHeader": true
-					},
-					"fileName": "[parameters('DS_ADLS_CustomerAddress_properties_typeProperties_fileName')]",
-					"folderPath": "[parameters('DS_ADLS_CustomerAddress_properties_typeProperties_folderPath')]"
+					"connectionString": "[parameters('LS_MSQL_AdventureWorksLT_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "SelfHostedIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_ADLS_sqlbitsadfra001dlsv1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DS_MSQL_SalesLT_Customer')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "LS_MSQL_AdventureWorksLT",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "SqlServerTable",
-				"typeProperties": {
-					"tableName": "[concat('[', 'SalesLT].[Customer]')]"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_MSQL_AdventureWorksLT')]"
+				"[concat(variables('factoryId'), '/integrationRuntimes/SelfHostedIntegrationRuntime')]"
 			]
 		},
 		{
@@ -274,7 +276,9 @@
 							{
 								"referenceName": "DS_ADLS_Address",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"JsonFileName": "Address.json"
+								}
 							}
 						],
 						"outputs": [
@@ -369,6 +373,25 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/DS_ADLS_CustomerAddress')]",
 				"[concat(variables('factoryId'), '/datasets/DS_ASQL_Staging')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_MSQL_SalesLT_Customer')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_MSQL_AdventureWorksLT",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "SqlServerTable",
+				"typeProperties": {
+					"tableName": "[concat('[', 'SalesLT].[Customer]')]"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_MSQL_AdventureWorksLT')]"
 			]
 		},
 		{
@@ -518,6 +541,125 @@
 								"SinkPreCopyScript": "TRUNCATE TABLE [AWLTSRC].[SalesLT_Customer]"
 							}
 						}
+					},
+					{
+						"name": "Copy_Address",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "Copy_SalesLT_CustomerV2",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "Copy_Address",
+								"type": "PipelineReference"
+							},
+							"parameters": {
+								"SinkPreCopyScript": "TRUNCATE TABLE AWLTSRC.SalesLT_Address"
+							}
+						}
+					},
+					{
+						"name": "Copy_CustomerAddress",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "Copy_Address",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "Copy_CustomerAddress",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {
+								"SinkPreCopyScript": "TRUNCATE TABLE AWLTSRC.SalesLT_CustomerAddress"
+							}
+						}
+					},
+					{
+						"name": "usp_Customer_Load",
+						"type": "SqlServerStoredProcedure",
+						"dependsOn": [
+							{
+								"activity": "Copy_CustomerAddress",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"storedProcedureName": "[concat('[', 'Stage].[usp_Customer_Load]')]",
+							"storedProcedureParameters": {
+								"BatchId": {
+									"value": "-1",
+									"type": "Int64"
+								},
+								"ETLAuditLogId": {
+									"value": "-1",
+									"type": "Int64"
+								},
+								"ETLControlId": {
+									"value": "-1",
+									"type": "Int32"
+								},
+								"PipelineId": {
+									"value": {
+										"value": "@pipeline().RunId",
+										"type": "Expression"
+									},
+									"type": "String"
+								},
+								"PipelineName": {
+									"value": {
+										"value": "@pipeline().Pipeline",
+										"type": "Expression"
+									},
+									"type": "String"
+								},
+								"PipelineTriggerType": {
+									"value": {
+										"value": "@pipeline().TriggerType",
+										"type": "Expression"
+									},
+									"type": "String"
+								},
+								"SinkName": {
+									"value": "Stage.Customer",
+									"type": "String"
+								},
+								"SourceName": {
+									"value": "AWLTSRC.Customer",
+									"type": "String"
+								},
+								"SourceSystem": {
+									"value": "AWLTSRC",
+									"type": "String"
+								}
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "LS_ASQL_Staging",
+							"type": "LinkedServiceReference"
+						}
 					}
 				],
 				"folder": {
@@ -526,7 +668,10 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/Copy_SalesLT_Customer2')]"
+				"[concat(variables('factoryId'), '/pipelines/Copy_SalesLT_Customer2')]",
+				"[concat(variables('factoryId'), '/pipelines/Copy_Address')]",
+				"[concat(variables('factoryId'), '/pipelines/Copy_CustomerAddress')]",
+				"[concat(variables('factoryId'), '/linkedServices/LS_ASQL_Staging')]"
 			]
 		}
 	]

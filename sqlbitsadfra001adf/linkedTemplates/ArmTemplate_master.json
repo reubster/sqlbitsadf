@@ -17,9 +17,17 @@
 		},
 		"DS_ADLS_Address_properties_typeProperties_fileName": {
 			"type": "string",
-			"defaultValue": "Address.json"
+			"defaultValue": "@dataset().JsonFileName"
 		},
 		"DS_ADLS_Address_properties_typeProperties_folderPath": {
+			"type": "string",
+			"defaultValue": "Reference"
+		},
+		"DS_ADLS_CustomerAddress_properties_typeProperties_fileName": {
+			"type": "string",
+			"defaultValue": "@dataset().TextFileName"
+		},
+		"DS_ADLS_CustomerAddress_properties_typeProperties_folderPath": {
 			"type": "string",
 			"defaultValue": "Reference"
 		},
@@ -38,14 +46,6 @@
 		"LS_ADLS_sqlbitsadfra001dlsv1_properties_typeProperties_resourceGroupName": {
 			"type": "string",
 			"defaultValue": "sqlbitsadfra001"
-		},
-		"DS_ADLS_CustomerAddress_properties_typeProperties_fileName": {
-			"type": "string",
-			"defaultValue": "CustomerAddress.txt"
-		},
-		"DS_ADLS_CustomerAddress_properties_typeProperties_folderPath": {
-			"type": "string",
-			"defaultValue": "Reference"
 		},
 		"containerUri": {
 			"type": "string",
