@@ -58,7 +58,8 @@
 					},
 					"waitOnCompletion": true,
 					"parameters": {
-						"SinkPreCopyScript": "TRUNCATE TABLE AWLTSRC.SalesLT_CustomerAddress"
+						"SinkPreCopyScript": "TRUNCATE TABLE AWLTSRC.SalesLT_CustomerAddress",
+						"CustomerAddressSourceFileName": "CustomerAddress.txt"
 					}
 				}
 			},
