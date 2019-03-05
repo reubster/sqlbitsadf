@@ -1,0 +1,25 @@
+{
+	"name": "DS_MSQL_SalesLT",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_MSQL_AdventureWorksLT",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"TableName": {
+				"type": "String",
+				"defaultValue": "[SalesLT].[Customer]"
+			}
+		},
+		"folder": {
+			"name": "Generic Datasets"
+		},
+		"type": "SqlServerTable",
+		"typeProperties": {
+			"tableName": {
+				"value": "@dataset().TableName",
+				"type": "Expression"
+			}
+		}
+	}
+}
