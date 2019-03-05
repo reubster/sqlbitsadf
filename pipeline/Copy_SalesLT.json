@@ -22,7 +22,15 @@
 					},
 					"sink": {
 						"type": "SqlSink",
-						"writeBatchSize": 10000
+						"writeBatchSize": 10000,
+						"sqlWriterStoredProcedureName": {
+							"value": "@pipeline().parameters.SinkStoredProcedure",
+							"type": "Expression"
+						},
+						"sqlWriterTableType": {
+							"value": "@pipeline().parameters.SinkTableType",
+							"type": "Expression"
+						}
 					},
 					"enableStaging": false
 				},
@@ -41,7 +49,13 @@
 				"outputs": [
 					{
 						"referenceName": "DS_ASQL_SalesLT",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": {
+								"value": "@pipeline().parameters.SinkTableName",
+								"type": "Expression"
+							}
+						}
 					}
 				]
 			}
@@ -58,6 +72,18 @@
 			"TableName": {
 				"type": "String",
 				"defaultValue": "[SalesLT].[Customer]"
+			},
+			"SinkTableName": {
+				"type": "String",
+				"defaultValue": "Source"
+			},
+			"SinkStoredProcedure": {
+				"type": "String",
+				"defaultValue": "[AWLTSRC].[usp_SalesLT_Customer_Merge]"
+			},
+			"SinkTableType": {
+				"type": "String",
+				"defaultValue": "[AWLTSRC].[SalesLT_CustomerType]"
 			}
 		},
 		"folder": {
