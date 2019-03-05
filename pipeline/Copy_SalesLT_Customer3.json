@@ -27,34 +27,53 @@
 						"sqlWriterTableType": "[AWLTSRC].[SalesLT_CustomerType]",
 						"storedProcedureParameters": {
 							"BatchId": {
-								"type": "Int64"
+								"type": "Int64",
+								"value": "-1"
 							},
 							"ETLAuditLogId": {
-								"type": "Int64"
+								"type": "Int64",
+								"value": "-1"
 							},
 							"ETLControlId": {
-								"type": "Int32"
+								"type": "Int32",
+								"value": "-1"
 							},
 							"LogType": {
-								"type": "String"
+								"type": "String",
+								"value": "Information"
 							},
 							"PipelineId": {
-								"type": "String"
+								"type": "String",
+								"value": {
+									"value": "@pipeline().RunId",
+									"type": "Expression"
+								}
 							},
 							"PipelineName": {
-								"type": "String"
+								"type": "String",
+								"value": {
+									"value": "@pipeline().Pipeline\n",
+									"type": "Expression"
+								}
 							},
 							"PipelineTriggerType": {
-								"type": "String"
+								"type": "String",
+								"value": {
+									"value": "@pipeline().TriggerType",
+									"type": "Expression"
+								}
 							},
 							"SinkName": {
-								"type": "String"
+								"type": "String",
+								"value": "Stage.Customer"
 							},
 							"SourceName": {
-								"type": "String"
+								"type": "String",
+								"value": "AWLTSRC.Customer"
 							},
 							"SourceSystem": {
-								"type": "String"
+								"type": "String",
+								"value": "AWLTSRC"
 							}
 						}
 					},
