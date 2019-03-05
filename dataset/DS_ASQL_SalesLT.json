@@ -5,12 +5,21 @@
 			"referenceName": "LS_ASQL_Staging",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"TableName": {
+				"type": "String",
+				"defaultValue": "adfad"
+			}
+		},
 		"folder": {
 			"name": "Generic Datasets"
 		},
 		"type": "AzureSqlTable",
 		"typeProperties": {
-			"tableName": "Source"
+			"tableName": {
+				"value": "@dataset().TableName",
+				"type": "Expression"
+			}
 		}
 	}
 }
