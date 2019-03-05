@@ -12,6 +12,16 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "@{pipeline().parameters.TableName}"
+					},
+					{
+						"name": "Destination",
+						"value": "@{pipeline().parameters.SinkTableName}"
+					}
+				],
 				"typeProperties": {
 					"source": {
 						"type": "SqlSource",
@@ -22,7 +32,10 @@
 					},
 					"sink": {
 						"type": "SqlSink",
-						"writeBatchSize": 10000,
+						"writeBatchSize": {
+							"value": "@pipeline().parameters.SinkWriteBatchSize",
+							"type": "Expression"
+						},
 						"sqlWriterStoredProcedureName": {
 							"value": "@pipeline().parameters.SinkStoredProcedure",
 							"type": "Expression"
@@ -30,6 +43,66 @@
 						"sqlWriterTableType": {
 							"value": "@pipeline().parameters.SinkTableType",
 							"type": "Expression"
+						},
+						"storedProcedureParameters": {
+							"BatchID": {
+								"type": "Int64",
+								"value": {
+									"value": "@pipeline().parameters.BatchId",
+									"type": "Expression"
+								}
+							},
+							"ETLAuditLogId": {
+								"type": "Int64",
+								"value": "-1"
+							},
+							"ETLControlId": {
+								"type": "Int32",
+								"value": "-1"
+							},
+							"LogType": {
+								"type": "String",
+								"value": "Information"
+							},
+							"PipelineId": {
+								"type": "String",
+								"value": {
+									"value": "@pipeline().RunId",
+									"type": "Expression"
+								}
+							},
+							"PipelineName": {
+								"type": "String",
+								"value": {
+									"value": "@pipeline().Pipeline",
+									"type": "Expression"
+								}
+							},
+							"PipelineTriggerType": {
+								"type": "String",
+								"value": {
+									"value": "@pipeline().TriggerType",
+									"type": "Expression"
+								}
+							},
+							"SinkName": {
+								"type": "String",
+								"value": {
+									"value": "@pipeline().parameters.SinkTableName",
+									"type": "Expression"
+								}
+							},
+							"SourceName": {
+								"type": "String",
+								"value": {
+									"value": "@pipeline().parameters.TableName",
+									"type": "Expression"
+								}
+							},
+							"SourceSystem": {
+								"type": "String",
+								"value": "AWLT"
+							}
 						}
 					},
 					"enableStaging": false
@@ -84,6 +157,14 @@
 			"SinkTableType": {
 				"type": "String",
 				"defaultValue": "[AWLTSRC].[SalesLT_CustomerType]"
+			},
+			"BatchId": {
+				"type": "Int",
+				"defaultValue": -1
+			},
+			"SinkWriteBatchSize": {
+				"type": "Int",
+				"defaultValue": 10000
 			}
 		},
 		"folder": {
