@@ -8,7 +8,7 @@
 		"parameters": {
 			"TableName": {
 				"type": "String",
-				"defaultValue": "adfad"
+				"defaultValue": "Source"
 			}
 		},
 		"folder": {
