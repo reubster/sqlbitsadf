@@ -101,6 +101,10 @@
 			"SinkPreCopyScript": {
 				"type": "String",
 				"defaultValue": "TRUNCATE TABLE [AWLTSRC].[SalesLT_Customer]"
+			},
+			"Source": {
+				"type": "String",
+				"defaultValue": "[AWLTSRC].[SalesLT_CustomerType]"
 			}
 		},
 		"folder": {
