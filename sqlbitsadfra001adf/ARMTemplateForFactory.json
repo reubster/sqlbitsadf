@@ -90,7 +90,10 @@
 								"referenceName": "DS_ADLS_Address",
 								"type": "DatasetReference",
 								"parameters": {
-									"JsonFileName": "Address.json"
+									"JsonFileName": {
+										"value": "@pipeline().parameters.AddressSourceFileName",
+										"type": "Expression"
+									}
 								}
 							}
 						],
@@ -109,10 +112,14 @@
 					"SinkPreCopyScript": {
 						"type": "String",
 						"defaultValue": "TRUNCATE TABLE AWLTSRC.SalesLT_Address"
+					},
+					"AddressSourceFileName": {
+						"type": "String",
+						"defaultValue": "Address.json"
 					}
 				},
 				"folder": {
-					"name": "Lab02"
+					"name": "Lab 02"
 				},
 				"annotations": []
 			},
@@ -158,7 +165,12 @@
 							{
 								"referenceName": "DS_ADLS_CustomerAddress",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"TextFileName": {
+										"value": "@pipeline().parameters.CustomerAddressSourceFileName",
+										"type": "Expression"
+									}
+								}
 							}
 						],
 						"outputs": [
@@ -176,10 +188,14 @@
 					"SinkPreCopyScript": {
 						"type": "String",
 						"defaultValue": "TRUNCATE TABLE AWLTSRC.SalesLT_CustomerAddress"
+					},
+					"CustomerAddressSourceFileName": {
+						"type": "String",
+						"defaultValue": "CustomerAddress.txt"
 					}
 				},
 				"folder": {
-					"name": "Lab02"
+					"name": "Lab 02"
 				},
 				"annotations": []
 			},
@@ -304,7 +320,128 @@
 					}
 				},
 				"folder": {
-					"name": "Lab02"
+					"name": "Lab 02"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DS_MSQL_SalesLT_Customer')]",
+				"[concat(variables('factoryId'), '/datasets/DS_ASQL_SalesLT_Customer')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Copy_SalesLT_Customer3')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "CopyFromMSQLtoASQL",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SqlSource",
+								"sqlReaderQuery": {
+									"value": "@pipeline().parameters.SourceQuery",
+									"type": "Expression"
+								}
+							},
+							"sink": {
+								"type": "SqlSink",
+								"writeBatchSize": 10000,
+								"sqlWriterStoredProcedureName": "[concat('[', 'AWLTSRC].[usp_SalesLT_Customer_Merge]')]",
+								"sqlWriterTableType": "[concat('[', 'AWLTSRC].[SalesLT_CustomerType]')]",
+								"storedProcedureParameters": {
+									"BatchId": {
+										"type": "Int64",
+										"value": "-1"
+									},
+									"ETLAuditLogId": {
+										"type": "Int64",
+										"value": "-1"
+									},
+									"ETLControlId": {
+										"type": "Int32",
+										"value": "-1"
+									},
+									"LogType": {
+										"type": "String",
+										"value": "Information"
+									},
+									"PipelineId": {
+										"type": "String",
+										"value": {
+											"value": "@pipeline().RunId",
+											"type": "Expression"
+										}
+									},
+									"PipelineName": {
+										"type": "String",
+										"value": {
+											"value": "@pipeline().Pipeline\n",
+											"type": "Expression"
+										}
+									},
+									"PipelineTriggerType": {
+										"type": "String",
+										"value": {
+											"value": "@pipeline().TriggerType",
+											"type": "Expression"
+										}
+									},
+									"SinkName": {
+										"type": "String",
+										"value": "Stage.Customer"
+									},
+									"SourceName": {
+										"type": "String",
+										"value": "AWLTSRC.Customer"
+									},
+									"SourceSystem": {
+										"type": "String",
+										"value": "AWLTSRC"
+									}
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "DS_MSQL_SalesLT_Customer",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DS_ASQL_SalesLT_Customer",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"parameters": {
+					"SourceQuery": {
+						"type": "String",
+						"defaultValue": "SELECT CustomerID, NameStyle, Title, FirstName, MiddleName, LastName, Suffix, CompanyName, SalesPerson, EmailAddress, Phone, PasswordHash, PasswordSalt, CAST(rowguid as NVARCHAR(50)) AS rowguid, ModifiedDate FROM SalesLT.Customer"
+					},
+					"SinkPreCopyScript": {
+						"type": "String",
+						"defaultValue": "TRUNCATE TABLE [AWLTSRC].[SalesLT_Customer]"
+					}
+				},
+				"folder": {
+					"name": "Lab 03"
 				},
 				"annotations": []
 			},
@@ -353,8 +490,10 @@
 								"referenceName": "Copy_Address",
 								"type": "PipelineReference"
 							},
+							"waitOnCompletion": true,
 							"parameters": {
-								"SinkPreCopyScript": "TRUNCATE TABLE AWLTSRC.SalesLT_Address"
+								"SinkPreCopyScript": "TRUNCATE TABLE AWLTSRC.SalesLT_Address",
+								"AddressSourceFileName": "Address.json"
 							}
 						}
 					},
@@ -377,7 +516,8 @@
 							},
 							"waitOnCompletion": true,
 							"parameters": {
-								"SinkPreCopyScript": "TRUNCATE TABLE AWLTSRC.SalesLT_CustomerAddress"
+								"SinkPreCopyScript": "TRUNCATE TABLE AWLTSRC.SalesLT_CustomerAddress",
+								"CustomerAddressSourceFileName": "CustomerAddress.txt"
 							}
 						}
 					},
@@ -456,8 +596,18 @@
 						}
 					}
 				],
+				"parameters": {
+					"AddressSourceFileName": {
+						"type": "String",
+						"defaultValue": "Address.json"
+					},
+					"CustomerAddressSourceFileName": {
+						"type": "String",
+						"defaultValue": "CustomerAddress.tst"
+					}
+				},
 				"folder": {
-					"name": "Lab02"
+					"name": "Lab 02"
 				},
 				"annotations": []
 			},
@@ -484,7 +634,7 @@
 					}
 				},
 				"folder": {
-					"name": "Lab02"
+					"name": "Lab 02"
 				},
 				"annotations": [],
 				"type": "AzureDataLakeStoreFile",
@@ -520,7 +670,7 @@
 					}
 				},
 				"folder": {
-					"name": "Lab02"
+					"name": "Lab 02"
 				},
 				"annotations": [],
 				"type": "AzureDataLakeStoreFile",
@@ -559,7 +709,7 @@
 				"annotations": [],
 				"type": "AzureSqlTable",
 				"typeProperties": {
-					"tableName": "[concat('[', 'AWLTSRC].[SalesLT_Customer]')]"
+					"tableName": "Source"
 				}
 			},
 			"dependsOn": [
