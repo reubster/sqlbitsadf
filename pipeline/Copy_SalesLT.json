@@ -81,8 +81,14 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "DS_MSQL_SalesLT_Customer",
-						"type": "DatasetReference"
+						"referenceName": "DS_MSQL_SalesLT",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": {
+								"value": "@pipeline().parameters.TableName",
+								"type": "Expression"
+							}
+						}
 					}
 				],
 				"outputs": [
@@ -101,6 +107,10 @@
 			"SinkPreCopyScript": {
 				"type": "String",
 				"defaultValue": "TRUNCATE TABLE [AWLTSRC].[SalesLT_Customer]"
+			},
+			"TableName": {
+				"type": "String",
+				"defaultValue": "[SalesLT].[Customer]"
 			}
 		},
 		"folder": {
