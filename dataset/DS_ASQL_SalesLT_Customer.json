@@ -7,7 +7,7 @@
 		},
 		"type": "AzureSqlTable",
 		"typeProperties": {
-			"tableName": "Source"
+			"tableName": "AWLTSRC.SalesLT_Customer"
 		}
 	}
 }
