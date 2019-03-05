@@ -22,60 +22,7 @@
 					},
 					"sink": {
 						"type": "SqlSink",
-						"writeBatchSize": 10000,
-						"sqlWriterStoredProcedureName": "[AWLTSRC].[usp_SalesLT_Customer_Merge]",
-						"sqlWriterTableType": "[AWLTSRC].[SalesLT_CustomerType]",
-						"storedProcedureParameters": {
-							"BatchId": {
-								"type": "Int64",
-								"value": "-1"
-							},
-							"ETLAuditLogId": {
-								"type": "Int64",
-								"value": "-1"
-							},
-							"ETLControlId": {
-								"type": "Int32",
-								"value": "-1"
-							},
-							"LogType": {
-								"type": "String",
-								"value": "Information"
-							},
-							"PipelineId": {
-								"type": "String",
-								"value": {
-									"value": "@pipeline().RunId",
-									"type": "Expression"
-								}
-							},
-							"PipelineName": {
-								"type": "String",
-								"value": {
-									"value": "@pipeline().Pipeline\n",
-									"type": "Expression"
-								}
-							},
-							"PipelineTriggerType": {
-								"type": "String",
-								"value": {
-									"value": "@pipeline().TriggerType",
-									"type": "Expression"
-								}
-							},
-							"SinkName": {
-								"type": "String",
-								"value": "Stage.Customer"
-							},
-							"SourceName": {
-								"type": "String",
-								"value": "AWLTSRC.Customer"
-							},
-							"SourceSystem": {
-								"type": "String",
-								"value": "AWLTSRC"
-							}
-						}
+						"writeBatchSize": 10000
 					},
 					"enableStaging": false
 				},
@@ -93,7 +40,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "DS_ASQL_SalesLT_Customer",
+						"referenceName": "DS_ASQL_SalesLT",
 						"type": "DatasetReference"
 					}
 				]
